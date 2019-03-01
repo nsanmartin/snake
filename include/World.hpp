@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <Media.hpp>
+#include <Board.hpp>
 #include <Cajita.hpp>
 #include <Polygon/Polygon.hpp>
 #include <State/WorldState.hpp>
@@ -14,10 +15,13 @@ public:
 private:
     bool mContinue;
     Media mMedia;
-    std::vector<Cajita> mCajitas;
+
+    Board mBoard;
+    Point<int> mBlockPos;
+    Point<double> mNormal; // to proyect
     //todo: use unique ptrs
     std::vector<Polygon*> mPolygons;
-    size_t mActiveCajita;
+
     size_t mActivePolygon;
     //todo: use unique ptrs
     std::vector<WorldState*> mStates;
@@ -33,11 +37,6 @@ public:
         return mStates.at(static_cast<size_t>(mPresentState));
     }
     void HandleInput() { GetState()->HandleInput(); }
-    void PushCajita(Cajita c) { mCajitas.push_back(c); }
-    void PopCajita() { mCajitas.pop_back(); }
-    bool ExistsActiveCajita() { return mActiveCajita < mCajitas.size(); }
-
-    Cajita& GetActiveCajita() { return mCajitas[mActiveCajita];}
 
     void PushPolygon(Polygon* p) { mPolygons.push_back(p); }
     void PopPolygon() { mPolygons.pop_back(); }

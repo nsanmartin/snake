@@ -82,19 +82,6 @@ void WorldStateMove::Update() {
 }
 
 void WorldStateMove::OnEnter() {
-    //mWorld.PushCajita(Cajita{100, 100});
-
-    std::vector<Point> vertices{
-        Point{0,0}, Point{0, 100}, Point{100, 100}, Point{100,0}};
-
-    uint64_t color {};
-    Point pos{0,0};
-    mWorld.PushPolygon(new Triangle{
-            std::vector<Point> {
-                Point{0,0}, Point{80, 120}, Point{210, 30}},
-                color, pos});
-    // mWorld.PushPolygon(new Polygon{vertices, color, pos});
-                    
                 
 }
 

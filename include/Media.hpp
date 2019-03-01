@@ -42,7 +42,7 @@ public:
     void Draw(const Cajita& c) const;
     void Draw(const Polygon& p) const;
     void Draw(const SDL_Point* pts, int count) const;
-    void FillTriangle(std::vector<Point> pts);
+
 };
 
 

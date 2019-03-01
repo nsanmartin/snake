@@ -9,7 +9,10 @@
 
 World::World()
     : mContinue{true}, mMedia{*this},
-      mActiveCajita{}, mActivePolygon{},
+      mBoard{20 /*width*/, 20/*height*/, 20/*depth*/},
+      mBlockPos{},
+      mNormal{},
+      mActivePolygon{},
       mStates{new WorldStatePresentation{*this},
               new WorldStateMove{*this}},
       mPresentState{}
@@ -19,9 +22,8 @@ World::World()
 
 
 World::~World() {
-    for (auto state : mStates) {
-        delete state;
-    }
+    for (auto state : mStates) { delete state; }
+    for (auto poly : mPolygons) { delete poly; }
 }
 
 void World::Loop() {

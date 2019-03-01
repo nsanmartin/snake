@@ -1,3 +1,4 @@
+// Fork from polygons
 This program is for drawing polygons in the screen. Right now it just
 draw arbitrary triangles, but from this is easy to draw arbitrary
 convex polygons. Maybe this could led to simple and non simple

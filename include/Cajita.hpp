@@ -4,20 +4,21 @@
 #include <cstdint>
 
 #include <Angle.hpp>
-
+#include <Point.hpp>
 
 
 class Cajita {
     uint64_t mColor;
+    Point<int> mDimentions;
+    Point <int> mPos;
 public:
-    int mX, mY, mZ;
-    int mPosX, mPosY;
+    int mSize{};
     Angle mAngle;
 
-    Cajita(int x = 1, int y = 1)
-        : mX{x}, mY{y}, mZ{1}, mPosX{}, mPosY{}, mAngle{} {}
-    void MoveY(int i) { mPosY += i; }
-    void MoveX(int i) { mPosX += i; }
+    Cajita(int size = 1, Point <int> pos = Point<int>{}, Angle angle = Angle{})
+        : mDimentions {Point<int>{size, size,size}},
+          mPos{pos}, mAngle{angle} {}
+    void Move(const Point<int>& p) { mPos += p; }
     void Rotate(int i) { mAngle += i; }
     
 };

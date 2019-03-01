@@ -10,25 +10,25 @@
 
 void Triangle::Draw(Media& media) const {
 
-    Point center{};
-    for (auto& p : mVertices) {
-        if (p.mX > center.mX) center.mX = p.mX;
-        if (p.mY > center.mY) center.mY = p.mY;
-    }
+    // Point<int> center{};
+    // for (auto& p : mVertices) {
+    //     if (p.mX > center.mX) center.mX = p.mX;
+    //     if (p.mY > center.mY) center.mY = p.mY;
+    // }
     
-    center /= 2;
-    Point pos {mPos};
-    int rotation {mAngle.mRot};
+    // center /= 2;
+    // Point pos {mPos};
+    // int rotation {mAngle.mRot};
     
-    std::vector<Point> vertices;
-    std::transform(mVertices.begin(), mVertices.end(),
-                   std::back_inserter(vertices),
-                   [&center, &rotation, &pos](const Point& p) {
-                       Point res {p - center};
-                       res.Rotate(rotation);
-                       res += pos + center;
-                       return Point{res.mX, res.mY};
-                   });
+    // std::vector<Point<int>> vertices;
+    // std::transform(mVertices.begin(), mVertices.end(),
+    //                std::back_inserter(vertices),
+    //                [&center, &rotation, &pos](const Point<int>& p) {
+    //                    Point<int> res {p - center};
+    //                    res.Rotate(rotation);
+    //                    res += pos + center;
+    //                    return Point<int>{res.mX, res.mY};
+    //                });
     
-    media.FillTriangle(vertices);
+    // media.FillTriangle(vertices);
 };
