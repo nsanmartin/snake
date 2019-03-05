@@ -3,7 +3,7 @@
 
 void WorldStateMove::HandleInput() {
     SDL_Event event;
-    int displ{};
+
     while( SDL_PollEvent( &event ) ) {
         switch( event.type ){
         case SDL_KEYDOWN:
@@ -67,29 +67,27 @@ void WorldStateMove::HandleInput() {
 
             case SDLK_x:
                 if (event.key.keysym.mod & KMOD_SHIFT) {
-                    displ = 5;
+                    mWorld.SetBoxDirection(Point<int>{1, 0, 0});
                 } else {
-                    displ = -5;
+                    mWorld.SetBoxDirection(Point<int>{-1, 0, 0});
                 }
-                mWorld.MoveBox(Point<int>{displ, 0, 0});
+                //mWorld.MoveBox(Point<int>{displ, 0, 0});
                 break;
                 
             case SDLK_y:
                 if (event.key.keysym.mod & KMOD_SHIFT) {
-                    displ = 5;
+                    mWorld.SetBoxDirection(Point<int>{0, 1, 0});
                 } else {
-                    displ = -5;
+                    mWorld.SetBoxDirection(Point<int>{0, -1, 0});
                 }
-                mWorld.MoveBox(Point<int>{0, displ, 0});
                 break;
 
             case SDLK_z:
                 if (event.key.keysym.mod & KMOD_SHIFT) {
-                    displ = 5;
+                    mWorld.SetBoxDirection(Point<int>{0, 0, 1});
                 } else {
-                    displ = -5;
+                    mWorld.SetBoxDirection(Point<int>{0, 0, -1});
                 }
-                mWorld.MoveBox(Point<int>{0, 0, displ});
                 break;
 
                 
@@ -120,10 +118,14 @@ void WorldStateMove::HandleInput() {
 
 void WorldStateMove::Update() {
 
+    if (mWorld.FallTimeElapsed()) {
+        // lets box fall
+        mWorld.MoveBox();
+    }
 }
 
 void WorldStateMove::OnEnter() {
-                
+    mWorld.SetBoxFallTime();
 }
 
 void WorldStateMove::OnExit() {

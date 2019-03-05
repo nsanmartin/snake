@@ -20,7 +20,7 @@ void Media::Init() {
     //Window
     mWin = SDL_CreateWindow(
         "HW", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        mWindowHeight, mWindowWidth, SDL_WINDOW_SHOWN);
+        mWindowWidth, mWindowHeight, SDL_WINDOW_SHOWN);
     
     if (mWin == nullptr) {
         std::cerr << "SDL_CreateWindow error: " << SDL_GetError()
@@ -53,12 +53,6 @@ void Media::Clear() {
 
 void Media::DrawLines(const std::vector<Point<double>>& points) const
 {
-    // for (auto& p : points) {
-    //     if (p.IsZero()) {
-    //         std::cout << "viene 0";
-    //     }
-    // }
-    
     std::vector<SDL_Point> sdl_pts;
     std::transform(points.begin(), points.end(),
                    std::back_inserter(sdl_pts),

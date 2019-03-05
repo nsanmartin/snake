@@ -14,12 +14,14 @@ World::World()
       mNormal{},
       mPlane{Point<double>{0.1, 0.1, 1.0}},
       mBox{80, 80, 80},
+      mBoxDirection{0,1,0},
+      mFallTimeMilli{20},
       mActivePolygon{},
       mStates{new WorldStatePresentation{*this},
               new WorldStateMove{*this}},
       mPresentState{}
 {
-
+    mBox.CenterAt(mMedia.GetWindowCenter());
 }
 
 
@@ -51,6 +53,6 @@ void World::Loop() {
 
 
 void World::Update() {
-    //todo:
+    GetState()->Update();
 }
 

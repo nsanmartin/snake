@@ -19,8 +19,9 @@ public:
     void Move(Point<int> p) {
         mPos += Point<double>{p.GetX(),p.GetY(),p.GetZ()};
     }
-
     void Draw(Media& media) ; //todo: make const
+    void CenterAt(Point<double> p) { mPos = p; }
+    void CenterAt(Point<int> p) { mPos = p.ToDouble(); }
 
 };
 

@@ -1,6 +1,8 @@
 #ifndef _WORLD_H
 #define _WORLD_H
 
+
+#include <chrono>
 #include <vector>
 
 #include <Media.hpp>
@@ -22,7 +24,10 @@ private:
     Point<double> mNormal; // to proyect
     Plane mPlane;
     RectBox mBox;
-
+    Point<int> mBoxDirection;
+    
+    std::chrono::steady_clock::time_point mLastBoxFall;
+    double mFallTimeMilli;
     //todo: use unique ptrs
     std::vector<Polygon*> mPolygons;
 
@@ -63,6 +68,41 @@ public:
             GetState()->OnEnter();
         }
     }
+
+    bool FallTimeElapsed() {
+        auto now = std::chrono::steady_clock::now();
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(
+                now  - mLastBoxFall).count()
+            > mFallTimeMilli) 
+            {
+                mLastBoxFall = now;
+                return true;
+            }
+        return false;
+    }
+
+    void MoveBox() { mBox.Move(mBoxDirection); }
+    void SetBoxDirection(Point<int> p) { mBoxDirection = p; }
+    
+    // bool BoxMustFall(std::chrono::steady_clock::time_point now)
+    //     const  {
+        
+    //     auto elapsed =
+    //         std::chrono::duration_cast<std::chrono::milliseconds>(
+    //             now - mLastBoxFall).count();
+            
+    //     return elapsed > mFallTimeMilli;
+    // }
+
+    void SetBoxFallTime() {
+        mLastBoxFall = std::chrono::steady_clock::now();
+
+    }
+
+    // void SetBoxFallTime() {
+    //     mLastBoxFall = std::chrono::steady_clock::now();
+    // }
+
 };
 
 

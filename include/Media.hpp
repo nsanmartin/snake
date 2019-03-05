@@ -23,7 +23,7 @@ private:
 public:
 
     Media(World& w)
-        : mWin{nullptr}, mWindowWidth{640}, mWindowHeight{480},
+        : mWin{nullptr}, mWindowWidth{1280}, mWindowHeight{640},
           mRenderer{nullptr}, mWorld{w} {}
     void Init();
     void Close();
@@ -46,6 +46,9 @@ public:
     void Draw(const SDL_Point* pts, int count) const;
 
     void DrawLines(const std::vector<Point<double>>& points) const;
+    Point<int> GetWindowCenter() const {
+        return Point<int> {mWindowWidth/2, mWindowHeight/2};
+    }
 };
 
 
