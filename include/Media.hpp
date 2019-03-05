@@ -39,10 +39,13 @@ public:
         return res;
     }
 
+    World& GetWorld() { return mWorld; }
+    
     void Draw(const Cajita& c) const;
     void Draw(const Polygon& p) const;
     void Draw(const SDL_Point* pts, int count) const;
 
+    void DrawLines(const std::vector<Point<double>>& points) const;
 };
 
 

@@ -51,6 +51,26 @@ void Media::Clear() {
 }
 
 
+void Media::DrawLines(const std::vector<Point<double>>& points) const
+{
+    // for (auto& p : points) {
+    //     if (p.IsZero()) {
+    //         std::cout << "viene 0";
+    //     }
+    // }
+    
+    std::vector<SDL_Point> sdl_pts;
+    std::transform(points.begin(), points.end(),
+                   std::back_inserter(sdl_pts),
+                   [] (const Point<double>& p) {
+            return SDL_Point{p.GetXInt(), p.GetYInt()};
+        });
+
+    SDL_SetRenderDrawColor( mRenderer, 0, 0, 255, 255 );
+    SDL_RenderDrawLines(mRenderer, sdl_pts.data(), sdl_pts.size());
+
+}
+
 void Media::PollEvents() {
     // mWorld.ExistsActiveCajita();
     // /* Poll for events */

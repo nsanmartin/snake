@@ -3,6 +3,7 @@
 
 void WorldStateMove::HandleInput() {
     SDL_Event event;
+    int displ{};
     while( SDL_PollEvent( &event ) ) {
         switch( event.type ){
         case SDL_KEYDOWN:
@@ -34,17 +35,29 @@ void WorldStateMove::HandleInput() {
 
                 break;
 
+            case SDLK_b:
+                mWorld.MovePlaneBackward();
+                break;
+
+            case SDLK_f:
+                mWorld.MovePlaneForward();
+                break;
+
             case SDLK_r:
+                mWorld.MovePlaneRight();
+                break;
+
+            // case SDLK_r:
                 
-                if (mWorld.ExistsActivePolygon()) {
-                    int rot{6};
+            //     if (mWorld.ExistsActivePolygon()) {
+            //         int rot{6};
 
-                    if (event.key.keysym.mod & KMOD_SHIFT) {
-                        rot = 354;
-                    }
+            //         if (event.key.keysym.mod & KMOD_SHIFT) {
+            //             rot = 354;
+            //         }
 
-                    mWorld.GetActivePolygon()->Rotate(rot);
-                }
+            //         mWorld.GetActivePolygon()->Rotate(rot);
+            //     }
 
                 break;
 
@@ -52,6 +65,34 @@ void WorldStateMove::HandleInput() {
                 mWorld.Quit();
                 break;
 
+            case SDLK_x:
+                if (event.key.keysym.mod & KMOD_SHIFT) {
+                    displ = 5;
+                } else {
+                    displ = -5;
+                }
+                mWorld.MoveBox(Point<int>{displ, 0, 0});
+                break;
+                
+            case SDLK_y:
+                if (event.key.keysym.mod & KMOD_SHIFT) {
+                    displ = 5;
+                } else {
+                    displ = -5;
+                }
+                mWorld.MoveBox(Point<int>{0, displ, 0});
+                break;
+
+            case SDLK_z:
+                if (event.key.keysym.mod & KMOD_SHIFT) {
+                    displ = 5;
+                } else {
+                    displ = -5;
+                }
+                mWorld.MoveBox(Point<int>{0, 0, displ});
+                break;
+
+                
             case SDLK_ESCAPE:
                 mWorld.ChangeState(
                     World::StateEnum::Presentation);

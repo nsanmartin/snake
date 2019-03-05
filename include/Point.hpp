@@ -22,15 +22,39 @@ bool is_zero(const T& number) {
 
 template <typename T>
 class Point {
+    static const double pi;
     r3vec<T> mVec;
 public:
     Point(T x = 0, T y = 0, T z = 0) : mVec{{x,y,z}} {}
     Point(r3vec<T> vec ) : mVec{vec} {}
-    void Rotate(int angle);
+
+
+    double GetX() const { return static_cast<double>(mVec[0]); }
+    double GetY() const { return static_cast<double>(mVec[1]); }
+    double GetZ() const { return static_cast<double>(mVec[2]); }
+
+    int GetXInt() const { return static_cast<int>(mVec[0]); }
+    int GetYInt() const { return static_cast<int>(mVec[1]); }
+    int GetZInt() const { return static_cast<int>(mVec[2]); }
+
+    void SetX(T x) { mVec[0] = x; }
+    void SetY(T y) { mVec[1] = y; }
+    void SetZ(T z) { mVec[2] = z; }
+
+    
+    
+    void RotateX(int angle);
+    void RotateY(int angle);
+    void RotateZ(int angle);
+
     Point<T>& operator=(const Point<T>& o) {
         mVec = o.mVec; return *this;
     }
-    
+
+    bool operator == (const Point<T>& p) {
+        return mVec[0] == p.mVec[0] && mVec[1] == p.mVec[1]
+            && mVec[2] == p.mVec[2];
+    }
     Point<T>& operator += (const Point<T> &p) {
         for (size_t i = 0; i < r3size; i++) { mVec[i] += p.mVec[i]; }
         return *this;
@@ -56,11 +80,7 @@ public:
         return is_zero<T>(mVec[0]) && is_zero<T>(mVec[1]) && is_zero<T>(mVec[2]);
     }
     
-    double Norm2() {
-        // return std::sqrt(std::accumulate(mVec.begin(), mVec.end(), 0,
-        //                                  [](double acc, T& x) {
-        //                                      return acc + x*x;
-        //                                  }));
+    double Norm2() const {
         double acc{};
         for (auto& x : mVec) { acc += x*x; }
         return std::sqrt(acc);
@@ -76,12 +96,16 @@ public:
         res.width(std::numeric_limits< double >::max_digits10 + 2);
         res.precision(std::numeric_limits< double > ::max_digits10);
         res << mVec[0] << sep << mVec[1] << sep << mVec[2];
-        // return std::accumulate(std::next(mVec.begin()), mVec.end(),
-        //                        std::to_string(mVec[0]),
-        //                        [](std::stringstream stream, T& x) {
-        //                            return std::move(a) + ' ' + std::to_string(x);
-        //                        });
         return res.str();
+    }
+
+    Point<double> ToDouble() {
+        r3vec<double> transformed;
+        std::transform(mVec.begin(), mVec.end(),
+                       transformed.begin(),[] (int i) {
+                           return static_cast<double>(i);
+                       });
+        return Point<double>{transformed};
     }
 };
 
@@ -124,20 +148,50 @@ Point<T> operator/(const Point<T>& q, const T& scalar) {
     return res;
 }
 
+template<typename T>
+const double Point<T>::pi{3.1415926535897};
 
 
 template <typename T>
-void Point<T>::Rotate(int angle) {
-    //todo: redo for R^3
-//     static const double pi{3.1415926535897};
-//     double radians{angle * pi/180};
-//     double cos_angle{cos(radians)};
-//     double sin_angle{sin(radians)};
+void Point<T>::RotateX(int angle) {
 
-//     double x{static_cast<double>(mX)};
-//     double y{static_cast<double>(mY)};
-//     mX = x * cos_angle - y * sin_angle;
-//     mY = x * sin_angle + y * cos_angle;
+    double radians{angle * pi/180};
+    double cos_angle{cos(radians)};
+    double sin_angle{sin(radians)};
+
+    double y{GetY()};
+    double z{GetZ()};
+    
+    SetY(y * cos_angle - z * sin_angle);
+    SetZ(y * sin_angle + z * cos_angle);
 }
+
+
+template <typename T>
+void Point<T>::RotateY(int angle) {
+    double radians{angle * pi/180};
+    double cos_angle{cos(radians)};
+    double sin_angle{sin(radians)};
+
+    double x{GetX()};
+    double z{GetZ()};
+    
+    SetX(x * cos_angle + z * sin_angle);
+    SetZ(z * cos_angle - x * sin_angle);
+}
+
+template <typename T>
+void Point<T>::RotateZ(int angle) {
+    double radians{angle * pi/180};
+    double cos_angle{cos(radians)};
+    double sin_angle{sin(radians)};
+
+    double x{GetX()};
+    double y{GetY()};
+    
+    SetX(x * cos_angle - y * sin_angle);
+    SetY(x * sin_angle + y * cos_angle);
+}
+
 
 #endif

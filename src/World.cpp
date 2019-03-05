@@ -12,6 +12,8 @@ World::World()
       mBoard{20 /*width*/, 20/*height*/, 20/*depth*/},
       mBlockPos{},
       mNormal{},
+      mPlane{Point<double>{0.1, 0.1, 1.0}},
+      mBox{80, 80, 80},
       mActivePolygon{},
       mStates{new WorldStatePresentation{*this},
               new WorldStateMove{*this}},
@@ -35,7 +37,7 @@ void World::Loop() {
         mMedia.Clear();
         //for (auto& cajita : mCajitas) { mMedia.Draw(cajita); }
         for (auto poly : mPolygons) { poly->Draw(mMedia); }
-        
+        mBox.Draw(mMedia);
         mMedia.PresentScreen();
         
         std::this_thread::sleep_for(
