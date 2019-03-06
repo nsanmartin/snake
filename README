@@ -1,5 +1,11 @@
 // Fork from polygons
 
+To "play" build tests and run box:
+
+$ make tests
+$ ./build/box
+
+
 After pressing s (for start), a cube falls in the direction
 indicated by the user. Default's is down (in y's axis), and can be
 changed by pressing x, y, z, X, Y, Z.
