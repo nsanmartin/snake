@@ -10,29 +10,15 @@ void WorldStateMove::HandleInput() {
             switch( event.key.keysym.sym ) {
 
             case SDLK_LEFT:
-                if (mWorld.ExistsActivePolygon()) {
-                    mWorld.GetActivePolygon()->MoveX(-2);
-                }
                 break;
 
             case SDLK_RIGHT:
-                if (mWorld.ExistsActivePolygon()) {
-                    mWorld.GetActivePolygon()->MoveX(2);
-                }
-
                 break;
 
             case SDLK_UP:
-                if (mWorld.ExistsActivePolygon()) {
-                    mWorld.GetActivePolygon()->MoveY(-2);
-                }
                 break;
 
             case SDLK_DOWN:
-                if (mWorld.ExistsActivePolygon()) {
-                    mWorld.GetActivePolygon()->MoveY(2);
-                }
-
                 break;
 
             case SDLK_b:

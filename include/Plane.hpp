@@ -23,15 +23,11 @@ public:
     }
 
     void MoveForward() {
-        std::cout << mNormal.ToString() << " => ";
-            mNormal.RotateX(6);
-        std::cout << mNormal.ToString() << std::endl;
+        mNormal.RotateX(6);
     }
     void MoveBackward() { mNormal.RotateX(354); }
     void MoveRight() {
-        std::cout << mNormal.ToString() << " => ";
         mNormal.RotateY(6);
-        std::cout << "\t" << mNormal.ToString() << std::endl;
     } 
     void MoveLeft() { mNormal.RotateY(354); }   
     

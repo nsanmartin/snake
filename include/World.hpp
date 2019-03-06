@@ -83,25 +83,9 @@ public:
 
     void MoveBox() { mBox.Move(mBoxDirection); }
     void SetBoxDirection(Point<int> p) { mBoxDirection = p; }
-    
-    // bool BoxMustFall(std::chrono::steady_clock::time_point now)
-    //     const  {
-        
-    //     auto elapsed =
-    //         std::chrono::duration_cast<std::chrono::milliseconds>(
-    //             now - mLastBoxFall).count();
-            
-    //     return elapsed > mFallTimeMilli;
-    // }
-
     void SetBoxFallTime() {
         mLastBoxFall = std::chrono::steady_clock::now();
-
     }
-
-    // void SetBoxFallTime() {
-    //     mLastBoxFall = std::chrono::steady_clock::now();
-    // }
 
 };
 
