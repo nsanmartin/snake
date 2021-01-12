@@ -10,7 +10,7 @@ After pressing s (for start), a cube falls in the direction
 indicated by the user. Default's is down (in y's axis), and can be
 changed by pressing x, y, z, X, Y, Z.
 
-Algo, projection plane can be moves presing f and b (this must
+Also, projection plane can be moves presing f and b (this must
 change), by rotating the vector normal to it.
 
 
