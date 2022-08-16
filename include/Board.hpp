@@ -2,6 +2,7 @@
 #define _BOARD_H
 
 #include <vector>
+#include <cstddef>
 
 class Board {
     unsigned mWidth, mHeigth, mDepth;
